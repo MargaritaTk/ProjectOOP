@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project
 {
-    public enum DrinkType
+    internal class Drink
     {
-        Coffee,
-        Tea,
-        Juice,
-        Water
     }
-
 }
