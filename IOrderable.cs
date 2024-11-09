@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project
 {
-    internal interface IOrderable
+    public interface IOrderable
     {
         string Name { get; }
         double Price { get; }
