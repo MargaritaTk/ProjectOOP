@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace Project
 {
-    internal class Customer
+    public class Customer
+    {
+        public string Name { get; }
+        public List<Order> Orders { get; }
+
+        public Customer(string name)
+        {
+            Name = name;
+            Orders = new List<Order>();
+        }
+
+        public void PlaceOrder(Order order)
     {
     }
 }
