@@ -8,5 +8,8 @@ namespace Project
 {
     internal interface IOrderable
     {
+        string Name { get; }
+        double Price { get; }
+        void PrintDetails();
     }
 }
