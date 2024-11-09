@@ -6,7 +6,21 @@ using System.Threading.Tasks;
 
 namespace Project
 {
-    internal class Waiter
+    public class Waiter
+    {
+        public string Name { get; }
+
+        public Waiter(string name)
+        {
+            Name = name;
+        }
+
+        public void TakeOrder(Order order)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ServeOrder(Order order)
     {
     }
 }
