@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Project
 {
-    internal interface IPrintable
+    public interface IPrintable
     {
+        void PrintMenu();
+        void PrintReceipt();
     }
 }
