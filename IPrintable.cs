@@ -8,6 +8,7 @@ namespace Project
 {
     public interface IPrintable
     {
+
         void PrintMenu();
         void PrintReceipt();
     }
