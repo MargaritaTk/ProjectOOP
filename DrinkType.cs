@@ -11,7 +11,8 @@ namespace Project
         Coffee,
         Tea,
         Juice,
-        Water
+        Water,
+        Lemonade
     }
 
 }
