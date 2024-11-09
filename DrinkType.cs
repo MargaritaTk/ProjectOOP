@@ -8,6 +8,7 @@ namespace Project
 {
     public enum DrinkType
     {
+        Tea,
         Coffee,
         Tea,
         Juice,
