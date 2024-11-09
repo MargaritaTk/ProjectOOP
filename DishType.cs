@@ -6,5 +6,13 @@ using System.Threading.Tasks;
 
 namespace Project
 {
- 
+    public enum DishType
+    {
+        HotDish,
+        ColdDish,
+        Salad,
+        Dessert,
+        Snack
+    }
+
 }
