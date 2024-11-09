@@ -6,7 +6,35 @@ using System.Threading.Tasks;
 
 namespace Project
 {
-    internal class Menu
+    using System.Collections.Generic;
+
+    public class Menu : IPrintable
+    {
+        public List<DishType> Dishes { get; }
+        public List<DrinkType> Drinks { get; }
+
+        public Menu()
+        {
+            Dishes = new List<DishType>();
+            Drinks = new List<DrinkType>();
+        }
+
+        public void AddDish(DishType dish)
+        {
+            Dishes.Add(dish);
+        }
+
+        public void AddDrink(DrinkType drink)
+        {
+            Drinks.Add(drink);
+        }
+
+        public void PrintMenu()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PrintReceipt()
     {
     }
 }
