@@ -6,7 +6,20 @@ using System.Threading.Tasks;
 
 namespace Project
 {
-    internal class Dish
+    public class Dish : IOrderable
+    {
+        public string Name { get; }
+        public double Price { get; }
+        public DishType Type { get; }
+
+        public Dish(string name, double price, DishType type)
+        {
+            Name = name;
+            Price = price;
+            Type = type;
+        }
+
+        public void PrintDetails()
     {
     }
 }
