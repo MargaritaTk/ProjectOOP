@@ -6,25 +6,17 @@ using System.Threading.Tasks;
 
 namespace Project
 {
-    using System.Collections.Generic;
-
     public class Menu : IPrintable
     {
-        public List<DishType> Dishes { get; }
-        public List<DrinkType> Drinks { get; }
+        public List<Dish> Dishes { get; } = new List<Dish>();
+        public List<Drink> Drinks { get; } = new List<Drink>();
 
-        public Menu()
-        {
-            Dishes = new List<DishType>();
-            Drinks = new List<DrinkType>();
-        }
-
-        public void AddDish(DishType dish)
+        public void AddDish(Dish dish)
         {
             Dishes.Add(dish);
         }
 
-        public void AddDrink(DrinkType drink)
+        public void AddDrink(Drink drink)
         {
             Drinks.Add(drink);
         }
@@ -35,6 +27,8 @@ namespace Project
         }
 
         public void PrintReceipt()
-    {
+        {
+            throw new NotImplementedException();
+        }
     }
 }

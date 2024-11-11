@@ -18,6 +18,9 @@ namespace Project
         }
 
         public void PlaceOrder(Order order)
-    {
+        {
+            Orders.Add(order);
+        }
     }
+
 }

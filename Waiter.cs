@@ -21,6 +21,8 @@ namespace Project
         }
 
         public void ServeOrder(Order order)
-    {
+        {
+            throw new NotImplementedException();
+        }
     }
 }

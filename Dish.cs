@@ -8,18 +8,13 @@ namespace Project
 {
     public class Dish : IOrderable
     {
-        public string Name { get; }
-        public double Price { get; }
-        public DishType Type { get; }
-
-        public Dish(string name, double price, DishType type)
-        {
-            Name = name;
-            Price = price;
-            Type = type;
-        }
+        public string Name { get; set; }
+        public double Price { get; set; }
+        public DishType Type { get; set; }
 
         public void PrintDetails()
-    {
+        {
+            throw new NotImplementedException();
+        }
     }
 }
