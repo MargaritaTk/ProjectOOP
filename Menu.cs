@@ -11,24 +11,21 @@ namespace Project
         public List<Dish> Dishes { get; } = new List<Dish>();
         public List<Drink> Drinks { get; } = new List<Drink>();
 
-        public void AddDish(Dish dish)
-        {
-            Dishes.Add(dish);
-        }
-
-        public void AddDrink(Drink drink)
-        {
-            Drinks.Add(drink);
-        }
+        public void AddDish(Dish dish) => Dishes.Add(dish);
+        public void AddDrink(Drink drink) => Drinks.Add(drink);
 
         public void PrintMenu()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Dishes:");
+            foreach (var dish in Dishes) dish.PrintDetails();
+            Console.WriteLine("Drinks:");
+            foreach (var drink in Drinks) drink.PrintDetails();
         }
 
         public void PrintReceipt()
         {
-            throw new NotImplementedException();
+            double total = Dishes.Sum(d => d.Price) + Drinks.Sum(d => d.Price);
+            Console.WriteLine($"Total: {total:C}");
         }
     }
 }
