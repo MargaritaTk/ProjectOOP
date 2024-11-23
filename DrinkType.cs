@@ -15,5 +15,4 @@ namespace Project
         Lemonade,
         Other
     }
-
 }
