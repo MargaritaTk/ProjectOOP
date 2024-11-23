@@ -1,20 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Project
 {
-    public class Dish : IOrderable
+    public class Dish : MenuItem, IComparable<Dish>, ICloneable
     {
-        public string Name { get; set; }
-        public double Price { get; set; }
+        public override string Name { get; set; }
+        public override double Price { get; set; }
         public DishType Type { get; set; }
 
-        public void PrintDetails()
+        public override void PrintDetails()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Dish: {Name}, Price: {Price:F2}, Type: {Type}");
+        }
+
+        public int CompareTo(Dish? other)
+        {
+            if (other == null) return 1;
+            return Price.CompareTo(other.Price);
+        }
+
+        public object Clone()
+        {
+            return new Dish
+            {
+                Name = this.Name,
+                Price = this.Price,
+                Type = this.Type
+            };
         }
     }
+
 }
