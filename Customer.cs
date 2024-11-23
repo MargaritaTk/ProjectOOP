@@ -19,6 +19,16 @@ namespace Project
 
         public void PlaceOrder(Order order)
         {
+            if (order == null)
+            {
+                throw new ArgumentNullException(nameof(order), "Order cannot be null.");
+            }
+
+            if (order.Items.Count == 0)
+            {
+                throw new InvalidOperationException("Order must contain at least one item.");
+            }
+
             Orders.Add(order);
         }
     }
