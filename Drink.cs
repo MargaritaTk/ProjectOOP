@@ -2,19 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Project
 {
-    public class Drink : IOrderable
+    public class Drink : MenuItem, ICloneable
     {
-        public string Name { get; set; }
-        public double Price { get; set; }
+        public override string Name { get; set; }
+        public override double Price { get; set; }
         public DrinkType Type { get; set; }
 
-        public void PrintDetails()
+        public override void PrintDetails()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Drink: {Name}, Price: {Price:F2}, Type: {Type}");
+        }
+
+
+        public object Clone()
+        {
+            return new Drink
+            {
+                Name = this.Name,
+                Price = this.Price,
+                Type = this.Type
+            };
         }
     }
+
 }
