@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Project
 {
@@ -18,6 +14,21 @@ namespace Project
         public void RemoveItem(IOrderable item)
         {
             Items.Remove(item);
+        }
+
+        public void PrintOrder()
+        {
+            if (Items.Count == 0)
+            {
+                Console.WriteLine("Order is empty.");
+                return;
+            }
+
+            Console.WriteLine("Order contains the following items:");
+            foreach (var item in Items)
+            {
+                item.PrintDetails();
+            }
         }
     }
 }
