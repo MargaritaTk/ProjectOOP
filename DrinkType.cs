@@ -12,7 +12,8 @@ namespace Project
         Tea,
         Juice,
         Water,
-        Lemonade
+        Lemonade,
+        Other
     }
 
 }
