@@ -31,12 +31,5 @@ namespace Project
                 drink.PrintDetails();
             }
         }
-
-        public void PrintReceipt()
-        {
-            Console.WriteLine("=== Receipt ===");
-            var total = Dishes.Sum(d => d.Price) + Drinks.Sum(d => d.Price);
-            Console.WriteLine($"Total: {total:F2}");
-        }
     }
 }
