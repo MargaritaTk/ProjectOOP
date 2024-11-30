@@ -30,7 +30,6 @@ namespace Project
                 return;
             }
             Role();
-            Console.WriteLine($"Waiter {Name} has taken the order.");
             ActiveOrders.Add(order);
             Console.WriteLine($"Waiter {Name} has taken the order with {order.Items.Count} items.");
         }
@@ -43,7 +42,6 @@ namespace Project
                 return;
             }
             Role();
-            Console.WriteLine($"Waiter {Name} has taken the order.");
 
             if (ActiveOrders.Contains(order))
             {
