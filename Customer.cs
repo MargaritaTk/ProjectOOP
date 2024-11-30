@@ -6,31 +6,29 @@ using System.Threading.Tasks;
 
 namespace Project
 {
-    public class Customer
+    public class Customer : Person
     {
-        public string Name { get; }
-        public List<Order> Orders { get; }
+        public List<Order> Orders { get; } = new List<Order>();
+        public override string RoleDescription { get; set; }
 
-        public Customer(string name)
+        public Customer(string name) : base(name)
         {
-            Name = name;
-            Orders = new List<Order>();
+            RoleDescription = "Our Customer.";
         }
 
+        public override void Role()
+        {
+            Console.WriteLine($"{Name} is placing an order.");
+        }
         public void PlaceOrder(Order order)
         {
-            if (order == null)
+            if (order == null || order.Items.Count == 0)
             {
-                throw new ArgumentNullException(nameof(order), "Order cannot be null.");
-            }
-
-            if (order.Items.Count == 0)
-            {
-                throw new InvalidOperationException("Order must contain at least one item.");
+                throw new InvalidOperationException("Order can't be empty.");
             }
 
             Orders.Add(order);
         }
     }
-
 }
+
