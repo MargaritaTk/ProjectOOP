@@ -15,20 +15,5 @@ namespace Project
         {
             Items.Remove(item);
         }
-
-        public void PrintOrder()
-        {
-            if (Items.Count == 0)
-            {
-                Console.WriteLine("Order is empty.");
-                return;
-            }
-
-            Console.WriteLine("Your order consists of:");
-            foreach (var item in Items)
-            {
-                item.PrintDetails();
-            }
-        }
     }
 }
