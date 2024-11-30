@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,14 +20,14 @@ namespace Project
         public override void Role()
         {
             Console.WriteLine($"{Name} is placing an order.");
-        }
-        public void PlaceOrder(Order order)
+        } public void PlaceOrder(Order order)
         {
+            Role();
+
             if (order == null || order.Items.Count == 0)
             {
                 throw new InvalidOperationException("Order can't be empty.");
             }
-
             Orders.Add(order);
         }
     }
