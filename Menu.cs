@@ -16,6 +16,14 @@ namespace Project
         {
             Drinks.Add(drink);
         }
+        public void SortDrinks()
+        {
+            Drinks.Sort();
+        }
+        public void SortDishes()
+        {
+            Dishes.Sort();
+        }
 
         public void PrintMenu()
         {
