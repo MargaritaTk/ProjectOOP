@@ -1,80 +1,87 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
   <Class Name="Project.Waiter">
-    <Position X="7.25" Y="0.5" Width="1.5" />
+    <Position X="8" Y="0.5" Width="3" />
     <TypeIdentifier>
-      <HashCode>AABAAAAAAAAAAgAAAAAAACQAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <HashCode>AABAAAAAAAAAAgAAMAAAACAAAAAAAAACAAAAAAAAgAA=</HashCode>
       <FileName>Waiter.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Project.Order">
-    <Position X="6.5" Y="3.75" Width="1.5" />
+    <Position X="8" Y="4" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAgAAAAAAEBAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAgAAAAAAEAAAAAAAAAAA=</HashCode>
       <FileName>Order.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Project.Menu">
-    <Position X="4.25" Y="3.25" Width="1.5" />
+    <Position X="4" Y="4" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAABAAAAAAhAAAAAAAQAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAABAAEAAAhAAAAAAAQAAAAAAIEAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Menu.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Project.Drink">
-    <Position X="2.5" Y="0.75" Width="1.5" />
+    <Position X="2" Y="0.75" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAQAAAAAAAAAAQAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAQAAAAQAAAAAQAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Drink.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Project.Dish">
-    <Position X="0.5" Y="3.25" Width="1.5" />
+    <Position X="1.25" Y="5.25" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAQAAAAAAAAAAQAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAQAAAAQAAAAAQAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Dish.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Project.Customer">
-    <Position X="5" Y="0.5" Width="1.5" />
+    <Position X="5" Y="0.5" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAEAAAAAAEAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAEAAAAAAEAAAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Customer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Program">
-    <Position X="13.75" Y="0.5" Width="8.5" />
+    <Position X="13.75" Y="0.5" Width="4.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <HashCode>AAABAEAwAABAAAAAAAAAAAAQAAAAAAAAAAAABACgAAA=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Project.Person">
+    <Position X="11" Y="4.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAMAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Person.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="Project.IPrintable">
-    <Position X="9.5" Y="0.5" Width="1.5" />
+    <Position X="11.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IPrintable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Project.IOrderable">
-    <Position X="0.5" Y="1" Width="1.5" />
+    <Position X="0.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IOrderable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="Project.DrinkType">
-    <Position X="11.75" Y="0.5" Width="1.5" />
+    <Position X="18.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAAAAAAAAAgAAAAAAAAAAIAAIgAAAAAAAAAAAIAAA=</HashCode>
       <FileName>DrinkType.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Project.DishType">
-    <Position X="10.25" Y="2.25" Width="1.5" />
+    <Position X="18.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAAIAAACBAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
       <FileName>DishType.cs</FileName>
