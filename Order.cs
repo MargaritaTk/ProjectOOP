@@ -24,7 +24,7 @@ namespace Project
                 return;
             }
 
-            Console.WriteLine("Order contains the following items:");
+            Console.WriteLine("Your order consists of:");
             foreach (var item in Items)
             {
                 item.PrintDetails();
