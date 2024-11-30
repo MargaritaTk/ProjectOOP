@@ -6,43 +6,74 @@ using System.Threading.Tasks;
 
 namespace Project
 {
-    public class Waiter
+    public class Waiter : Person
     {
-        public string Name { get; }
-        public List<Order> ActiveOrders { get; } = new List<Order>();
+        public override string RoleDescription { get; set; }
 
-        public Waiter(string name)
+        public Waiter(string name) : base(name)
         {
-            Name = name;
+            RoleDescription = "Your Waiter.";
         }
 
-        // Метод для додавання активного замовлення
+        private List<Order> ActiveOrders { get; set; } = new List<Order>();
+
+        public override void Role()
+        {
+            Console.WriteLine($"{Name} is serving orders.");
+        }
+
         public void TakeOrder(Order order)
         {
+            if (order == null)
+            {
+                Console.WriteLine("Invalid order. Can't be null.");
+                return;
+            }
+            Role();
+            Console.WriteLine($"Waiter {Name} has taken the order.");
             ActiveOrders.Add(order);
+            Console.WriteLine($"Waiter {Name} has taken the order with {order.Items.Count} items.");
         }
 
-        // Метод для обслуговування замовлення
         public void ServeOrder(Order order)
         {
-            ActiveOrders.Remove(order);
-            Console.WriteLine($"Order for {order} has been served by {Name}.");
+            if (order == null)
+            {
+                Console.WriteLine("Invalid order. Can't be null.");
+                return;
+            }
+            Role();
+            Console.WriteLine($"Waiter {Name} has taken the order.");
+
+            if (ActiveOrders.Contains(order))
+            {
+                ActiveOrders.Remove(order);
+                Console.WriteLine($"Waiter {Name} has served the order successfully.");
+            }
+            else
+            {
+                Console.WriteLine($"The order is not found in {Name}'s active orders.");
+            }
         }
 
-        // Додатковий метод для виведення активних замовлень
         public void PrintActiveOrders()
         {
             if (ActiveOrders.Count == 0)
             {
-                Console.WriteLine("No active orders.");
-                return;
+                Console.WriteLine($"Waiter {Name} currently has no active orders.");
             }
-
-            for (int i = 0; i < ActiveOrders.Count; i++)
+            else
             {
-                var order = ActiveOrders[i];
-                Console.WriteLine($"{i + 1}. Order: {string.Join(", ", order.Items.Select(item => item.Name))}");
+                Console.WriteLine($"Waiter {Name}'s active orders:");
+                for (int i = 0; i < ActiveOrders.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. Order with {ActiveOrders[i].Items.Count} items.");
+                }
             }
+        }
+        public List<Order> GetActiveOrders()
+        {
+            return new List<Order>(ActiveOrders);
         }
     }
 }
