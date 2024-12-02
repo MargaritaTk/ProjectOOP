@@ -25,7 +25,6 @@ class Program
 
         foreach (var person in people)
         {
-            //person.Role();
             Console.WriteLine($"{person.Name}: {person.RoleDescription}");
         }
 
@@ -83,26 +82,37 @@ class Program
 
     static void AddDish(Menu menu)
     {
-        Console.Write("Enter the name of the dish: ");
-        string name = Console.ReadLine();
-
-        Console.Write("Enter the price of the dish: ");
-        if (!double.TryParse(Console.ReadLine(), out double price) || price <= 0)
+        string name;
+        while (true)
         {
-            Console.WriteLine("Invalid price.");
-            return;
+            Console.Write("Enter the name of the dish: ");
+            name = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(name))
+                break;
+            Console.WriteLine("Dish name can't be empty. Please try again.");
         }
 
-        Console.WriteLine("Choose the type of the dish:");
-        foreach (var type in Enum.GetValues(typeof(DishType)))
+        double price;
+        while (true)
         {
-            Console.WriteLine($"- {type}");
+            Console.Write("Enter the price of the dish: ");
+            if (double.TryParse(Console.ReadLine(), out price) && price > 0)
+                break;
+            Console.WriteLine("Invalid price. Please enter a positive number.");
         }
 
-        if (!Enum.TryParse(Console.ReadLine(), out DishType dishType))
+        DishType dishType;
+        while (true)
         {
-            Console.WriteLine("Invalid dish type.");
-            return;
+            Console.WriteLine("Choose the type of the dish:");
+            foreach (var type in Enum.GetValues(typeof(DishType)))
+            {
+                Console.WriteLine($"- {type}");
+            }
+
+            if (Enum.TryParse(Console.ReadLine(), true, out dishType))
+                break;
+            Console.WriteLine("Invalid dish type. Please try again.");
         }
 
         var dish = new Dish { Name = name, Price = price, Type = dishType };
@@ -113,26 +123,37 @@ class Program
 
     static void AddDrink(Menu menu)
     {
-        Console.Write("Enter the name of the drink: ");
-        string name = Console.ReadLine();
-
-        Console.Write("Enter the price of the drink: ");
-        if (!double.TryParse(Console.ReadLine(), out double price) || price <= 0)
+        string name;
+        while (true)
         {
-            Console.WriteLine("Invalid price.");
-            return;
+            Console.Write("Enter the name of the drink: ");
+            name = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(name))
+                break;
+            Console.WriteLine("Drink name cannot be empty. Please try again.");
         }
 
-        Console.WriteLine("Choose the type of the drink:");
-        foreach (var type in Enum.GetValues(typeof(DrinkType)))
+        double price;
+        while (true)
         {
-            Console.WriteLine($"- {type}");
+            Console.Write("Enter the price of the drink: ");
+            if (double.TryParse(Console.ReadLine(), out price) && price > 0)
+                break;
+            Console.WriteLine("Invalid price. Please enter a positive number.");
         }
 
-        if (!Enum.TryParse(Console.ReadLine(), out DrinkType drinkType))
+        DrinkType drinkType;
+        while (true)
         {
-            Console.WriteLine("Invalid drink type.");
-            return;
+            Console.WriteLine("Choose the type of the drink:");
+            foreach (var type in Enum.GetValues(typeof(DrinkType)))
+            {
+                Console.WriteLine($"- {type}");
+            }
+
+            if (Enum.TryParse(Console.ReadLine(), true, out drinkType))
+                break;
+            Console.WriteLine("Invalid drink type. Please try again.");
         }
 
         var drink = new Drink { Name = name, Price = price, Type = drinkType };
@@ -184,24 +205,26 @@ class Program
 
     static void AddOrder(Menu menu, List<Person> people)
     {
-        Console.Write("Enter customer name: ");
-        string customerName = Console.ReadLine();
-
         Customer customer = null;
 
-        foreach (var person in people)
+        while (true)
         {
-            if (person is Customer c && c.Name.Equals(customerName))
-            {
-                customer = c;
-                break;
-            }
-        }
+            Console.Write("Enter customer name: ");
+            string customerName = Console.ReadLine();
 
-        if (customer == null)
-        {
-            Console.WriteLine($"Error: We don't have a customer with the name '{customerName}'.");
-            return;
+            foreach (var person in people)
+            {
+                if (person is Customer c && c.Name.Equals(customerName, StringComparison.OrdinalIgnoreCase))
+                {
+                    customer = c;
+                    break;
+                }
+            }
+
+            if (customer != null)
+                break;
+
+            Console.WriteLine($"Error: We don't have a customer with the name '{customerName}'. Please try again.");
         }
 
         var order = new Order();
@@ -212,23 +235,25 @@ class Program
             Console.Write("Enter item name: ");
             string itemName = Console.ReadLine();
 
-            if (itemName.Equals("done")) break;
+            if (itemName.Equals("done", StringComparison.OrdinalIgnoreCase))
+                break;
 
             IOrderable item = null;
 
             foreach (var dish in menu.Dishes)
             {
-                if (dish.Name == itemName)
+                if (dish.Name.Equals(itemName))
                 {
                     item = dish;
                     break;
                 }
             }
+
             if (item == null)
             {
                 foreach (var drink in menu.Drinks)
                 {
-                    if (drink.Name == itemName)
+                    if (drink.Name.Equals(itemName))
                     {
                         item = drink;
                         break;
@@ -243,14 +268,14 @@ class Program
             }
             else
             {
-                Console.WriteLine("Item not found in menu.");
+                Console.WriteLine("Item not found in menu. Please try again.");
             }
         }
 
         try
         {
             customer.PlaceOrder(order);
-            Console.WriteLine("Order added.");
+            Console.WriteLine("Order added successfully.");
         }
         catch (InvalidOperationException ex)
         {
@@ -258,64 +283,72 @@ class Program
         }
     }
 
+
     static void AssignOrderToWaiter(List<Person> people)
     {
-        Console.Write("Enter customer name: ");
-        string customerName = Console.ReadLine();
-
         Customer customer = null;
-
-        foreach (var person in people)
+        while (true)
         {
-            if (person is Customer c && c.Name == customerName)
-            {
-                customer = c;
-                break;
-            }
-        }
-
-        if (customer == null || customer.Orders.Count == 0)
-        {
-            Console.WriteLine("No orders found for this customer.");
-            return;
-        }
-
-        Console.Write("Enter order index: ");
-        if (int.TryParse(Console.ReadLine(), out int orderIndex) && orderIndex > 0 && orderIndex <= customer.Orders.Count)
-        {
-            var order = customer.Orders[orderIndex - 1];
-
-            Console.WriteLine("Available waiters:");
-            var waiters = new List<Waiter>();
+            Console.Write("Enter customer name: ");
+            string customerName = Console.ReadLine();
 
             foreach (var person in people)
             {
-                if (person is Waiter waiter)
+                if (person is Customer c && c.Name.Equals(customerName))
                 {
-                    waiters.Add(waiter);
+                    customer = c;
+                    break;
                 }
             }
 
-            for (int i = 0; i < waiters.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {waiters[i].Name}");
-            }
+            if (customer != null && customer.Orders.Count > 0)
+                break;
 
-            Console.Write("Choose waiter index: ");
-            if (int.TryParse(Console.ReadLine(), out int waiterIndex) && waiterIndex > 0 && waiterIndex <= waiters.Count)
+            Console.WriteLine("No orders found for this customer or customer does not exist. Please try again.");
+        }
+
+        while (true)
+        {
+            Console.Write("Enter order index: ");
+            if (int.TryParse(Console.ReadLine(), out int orderIndex) && orderIndex > 0 && orderIndex <= customer.Orders.Count)
             {
-                var waiter = waiters[waiterIndex - 1];
-                waiter.TakeOrder(order);
-                Console.WriteLine("The waiter took the order.");
+                var order = customer.Orders[orderIndex - 1];
+                Console.WriteLine("Available waiters:");
+                var waiters = new List<Waiter>();
+
+                foreach (var person in people)
+                {
+                    if (person is Waiter waiter)
+                    {
+                        waiters.Add(waiter);
+                    }
+                }
+
+                for (int i = 0; i < waiters.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {waiters[i].Name}");
+                }
+
+                while (true)
+                {
+                    Console.Write("Choose waiter index: ");
+                    if (int.TryParse(Console.ReadLine(), out int waiterIndex) && waiterIndex > 0 && waiterIndex <= waiters.Count)
+                    {
+                        var waiter = waiters[waiterIndex - 1];
+                        waiter.TakeOrder(order);
+                        Console.WriteLine("The waiter took the order.");
+                        return; 
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid waiter index. Please try again.");
+                    }
+                }
             }
             else
             {
-                Console.WriteLine("Invalid waiter index.");
+                Console.WriteLine("Invalid order index. Please try again.");
             }
-        }
-        else
-        {
-            Console.WriteLine("Invalid order index.");
         }
     }
 
@@ -337,107 +370,121 @@ class Program
             return;
         }
 
-        Console.WriteLine("Available waiters:");
-        for (int i = 0; i < waiters.Count; i++)
+        while (true)
         {
-            Console.WriteLine($"{i + 1}. {waiters[i].Name}");
-        }
-
-        Console.Write("Choose a waiter by index: ");
-        if (int.TryParse(Console.ReadLine(), out int waiterIndex) && waiterIndex >= 1 && waiterIndex <= waiters.Count)
-        {
-            var waiter = waiters[waiterIndex - 1];
-            var activeOrders = waiter.GetActiveOrders();
-
-            if (activeOrders.Count == 0)
+            Console.WriteLine("Available waiters:");
+            for (int i = 0; i < waiters.Count; i++)
             {
-                Console.WriteLine("This waiter has no active orders.");
-                return;
+                Console.WriteLine($"{i + 1}. {waiters[i].Name}");
             }
 
-            Console.WriteLine("Active orders:");
-            for (int i = 0; i < activeOrders.Count; i++)
+            Console.Write("Choose a waiter by index: ");
+            if (int.TryParse(Console.ReadLine(), out int waiterIndex) && waiterIndex >= 1 && waiterIndex <= waiters.Count)
             {
-                Console.WriteLine($"{i + 1}. Order with {activeOrders[i].Items.Count} items.");
-            }
+                var waiter = waiters[waiterIndex - 1];
+                var activeOrders = waiter.GetActiveOrders();
 
-            Console.Write("Enter order index to serve (1 to N): ");
-            if (int.TryParse(Console.ReadLine(), out int orderIndex) && orderIndex >= 1 && orderIndex <= activeOrders.Count)
-            {
-                var order = activeOrders[orderIndex - 1];
-                waiter.ServeOrder(order);
-                Console.WriteLine("Order has been served.");
-                foreach (var person in people)
+                if (activeOrders.Count == 0)
                 {
-                    if (person is Customer customer && customer.Orders.Contains(order))
-                    {
-                        customer.Orders.Remove(order);
-                        Console.WriteLine($"Order removed from customer {customer.Name}'s list.");
-                        break;
-                    }
+                    Console.WriteLine("This waiter has no active orders.");
+                    return;
                 }
 
-                Console.WriteLine("Order has been served.");
+                while (true)
+                {
+                    Console.WriteLine("Active orders:");
+                    for (int i = 0; i < activeOrders.Count; i++)
+                    {
+                        Console.WriteLine($"{i + 1}. Order with {activeOrders[i].Items.Count} items.");
+                    }
+
+                    Console.Write("Enter order index to serve (1 to N): ");
+                    if (int.TryParse(Console.ReadLine(), out int orderIndex) && orderIndex >= 1 && orderIndex <= activeOrders.Count)
+                    {
+                        var order = activeOrders[orderIndex - 1];
+                        waiter.ServeOrder(order);
+                        Console.WriteLine("Order has been served.");
+
+                        foreach (var person in people)
+                        {
+                            if (person is Customer customer && customer.Orders.Contains(order))
+                            {
+                                customer.Orders.Remove(order);
+                                Console.WriteLine($"Order removed from customer {customer.Name}'s list.");
+                                break;
+                            }
+                        }
+                        return;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid order index. Please try again.");
+                    }
+                }
             }
             else
             {
-                Console.WriteLine("Invalid order index.");
+                Console.WriteLine("Invalid waiter index. Please try again.");
             }
-        }
-        else
-        {
-            Console.WriteLine("Invalid waiter index.");
         }
     }
 
     static void RemoveItemFromOrder(List<Person> people)
     {
-        Console.Write("Enter customer name: ");
-        string customerName = Console.ReadLine();
-
         Customer customer = null;
-
-        foreach (var person in people)
+        while (true)
         {
-            if (person is Customer c && c.Name == customerName)
+            Console.Write("Enter customer name: ");
+            string customerName = Console.ReadLine();
+
+            foreach (var person in people)
             {
-                customer = c;
+                if (person is Customer c && c.Name.Equals(customerName))
+                {
+                    customer = c;
+                    break;
+                }
+            }
+
+            if (customer != null && customer.Orders.Count > 0)
                 break;
-            }
+
+            Console.WriteLine("No orders found for this customer or customer does not exist. Please try again.");
         }
 
-        if (customer == null || customer.Orders.Count == 0)
+        while (true)
         {
-            Console.WriteLine("No orders found for this customer.");
-            return;
-        }
-
-        Console.Write("Enter order index to modify (1 to N): ");
-        if (int.TryParse(Console.ReadLine(), out int orderIndex) && orderIndex >= 1 && orderIndex <= customer.Orders.Count)
-        {
-            var order = customer.Orders[orderIndex - 1];
-
-            Console.WriteLine("Items in the order:");
-            for (int i = 0; i < order.Items.Count; i++)
+            Console.Write("Enter order index to modify (1 to N): ");
+            if (int.TryParse(Console.ReadLine(), out int orderIndex) && orderIndex >= 1 && orderIndex <= customer.Orders.Count)
             {
-                Console.WriteLine($"{i + 1}. {order.Items[i].Name} ({order.Items[i].Price} UAH)");
-            }
+                var order = customer.Orders[orderIndex - 1];
 
-            Console.Write("Enter item index to remove (1 to N): ");
-            if (int.TryParse(Console.ReadLine(), out int itemIndex) && itemIndex >= 1 && itemIndex <= order.Items.Count)
-            {
-                var item = order.Items[itemIndex - 1];
-                order.RemoveItem(item);
-                Console.WriteLine($"{item.Name} has been removed from the order.");
+                while (true)
+                {
+                    Console.WriteLine("Items in the order:");
+                    for (int i = 0; i < order.Items.Count; i++)
+                    {
+                        Console.WriteLine($"{i + 1}. {order.Items[i].Name} ({order.Items[i].Price} UAH)");
+                    }
+
+                    Console.Write("Enter item index to remove (1 to N): ");
+                    if (int.TryParse(Console.ReadLine(), out int itemIndex) && itemIndex >= 1 && itemIndex <= order.Items.Count)
+                    {
+                        var item = order.Items[itemIndex - 1];
+                        order.RemoveItem(item);
+                        Console.WriteLine($"{item.Name} has been removed from the order.");
+                        return; 
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid item index. Please try again.");
+                    }
+                }
             }
             else
             {
-                Console.WriteLine("Invalid item index.");
+                Console.WriteLine("Invalid order index. Please try again.");
             }
-        }
-        else
-        {
-            Console.WriteLine("Invalid order index.");
         }
     }
 }
