@@ -4,7 +4,7 @@ namespace Project
 {
     public interface IPrintable
     {
-        void PrintMenu();
+        string PrintMenu();
 
     }
 }
