@@ -19,9 +19,7 @@ namespace Project
 
             return this.Price.CompareTo(other.Price); 
         }
-
-
-        public void PrintDetails()
+        public string PrintDetails()
         {
             Console.WriteLine($"Drink: {Name}, Type: {Type}, Price: {Price} UAH");
 
