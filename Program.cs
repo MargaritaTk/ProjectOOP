@@ -11,6 +11,8 @@ class Program
     static void MainMenu()
     {
         var menu = new Menu();
+        menu.MenuUpdates += message => Console.WriteLine($"[Menu Update]: {message}"); // Підписка на подію
+
         List<Person> people = new List<Person>
         {
             new Waiter("Chris"),
@@ -53,7 +55,7 @@ class Program
                     AddDrink(menu);
                     break;
                 case "3":
-                    menu.PrintMenu();
+                    ViewMenu(menu);
                     break;
                 case "4":
                     AddOrder(menu, people); 
@@ -82,6 +84,7 @@ class Program
 
     static void AddDish(Menu menu)
     {
+        Action<string> printAction = Console.WriteLine; // Делегат Action
         string name;
         while (true)
         {
@@ -89,7 +92,7 @@ class Program
             name = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(name))
                 break;
-            Console.WriteLine("Dish name can't be empty. Please try again.");
+            printAction("Dish name can't be empty. Please try again.");
         }
 
         double price;
@@ -98,7 +101,7 @@ class Program
             Console.Write("Enter the price of the dish: ");
             if (double.TryParse(Console.ReadLine(), out price) && price > 0)
                 break;
-            Console.WriteLine("Invalid price. Please enter a positive number.");
+            printAction("Invalid price. Please enter a positive number.");
         }
 
         DishType dishType;
@@ -107,22 +110,23 @@ class Program
             Console.WriteLine("Choose the type of the dish:");
             foreach (var type in Enum.GetValues(typeof(DishType)))
             {
-                Console.WriteLine($"- {type}");
+                printAction($"- {type}");
             }
 
             if (Enum.TryParse(Console.ReadLine(), true, out dishType))
                 break;
-            Console.WriteLine("Invalid dish type. Please try again.");
+            printAction("Invalid dish type. Please try again.");
         }
 
         var dish = new Dish { Name = name, Price = price, Type = dishType };
         menu.AddDish(dish);
-        menu.SortDishes();
-        Console.WriteLine("Dish added successfully.");
+        printAction("Dish added successfully.");
     }
 
     static void AddDrink(Menu menu)
     {
+        Func<string, double, DrinkType, Drink> createDrink = (name, price, type) => new Drink { Name = name, Price = price, Type = type }; // Делегат Func
+
         string name;
         while (true)
         {
@@ -156,9 +160,8 @@ class Program
             Console.WriteLine("Invalid drink type. Please try again.");
         }
 
-        var drink = new Drink { Name = name, Price = price, Type = drinkType };
+        var drink = createDrink(name, price, drinkType);
         menu.AddDrink(drink);
-        menu.SortDrinks();
         Console.WriteLine("Drink added successfully.");
     }
 
@@ -201,7 +204,6 @@ class Program
             }
         }
     }
-
 
     static void AddOrder(Menu menu, List<Person> people)
     {
@@ -265,10 +267,12 @@ class Program
             {
                 order.AddItem(item);
                 Console.WriteLine($"{item.Name} added to the order.");
+                Console.WriteLine();
             }
             else
             {
                 Console.WriteLine("Item not found in menu. Please try again.");
+                Console.WriteLine();
             }
         }
 
@@ -283,6 +287,10 @@ class Program
         }
     }
 
+    static void ViewMenu(Menu menu)
+    {
+        Console.WriteLine(menu.PrintMenu());
+    }
 
     static void AssignOrderToWaiter(List<Person> people)
     {
@@ -335,7 +343,7 @@ class Program
                     if (int.TryParse(Console.ReadLine(), out int waiterIndex) && waiterIndex > 0 && waiterIndex <= waiters.Count)
                     {
                         var waiter = waiters[waiterIndex - 1];
-                        waiter.TakeOrder(order);
+                        Console.WriteLine(waiter.TakeOrder(order));
                         Console.WriteLine("The waiter took the order.");
                         return; 
                     }
@@ -387,7 +395,7 @@ class Program
                 if (activeOrders.Count == 0)
                 {
                     Console.WriteLine("This waiter has no active orders.");
-                    return;
+                    continue;
                 }
 
                 while (true)
