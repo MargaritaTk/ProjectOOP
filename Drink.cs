@@ -21,8 +21,7 @@ namespace Project
         }
         public string PrintDetails()
         {
-            Console.WriteLine($"Drink: {Name}, Type: {Type}, Price: {Price} UAH");
-
+            return $"Drink: {Name}, Type: {Type}, Price: {Price} UAH";
         }
     }
 }
