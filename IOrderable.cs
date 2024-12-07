@@ -6,6 +6,6 @@ namespace Project
     {
         string Name { get; }
         double Price { get; }
-        void PrintDetails();
+        string PrintDetails();
     }
 }
