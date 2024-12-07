@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,56 +21,50 @@ namespace Project
             Console.WriteLine($"{Name} is serving orders.");
         }
 
-        public void TakeOrder(Order order)
+        public string TakeOrder(Order order)
         {
-            if (order == null)
-            {
-                Console.WriteLine("Invalid order. Can't be null.");
-                return;
-            }
+            if (order == null) return "Invalid order. Can't be null.";
+
             Role();
             ActiveOrders.Add(order);
-            Console.WriteLine($"Waiter {Name} has taken the order with {order.Items.Count} items.");
+            return $"Waiter {Name} has taken the order with {order.Items.Count} items.";
         }
 
-        public void ServeOrder(Order order)
+        public string ServeOrder(Order order)
         {
-            if (order == null)
-            {
-                Console.WriteLine("Invalid order. Can't be null.");
-                return;
-            }
-            Role();
+            if (order == null) return "Invalid order. Can't be null.";
 
+            Role();
             if (ActiveOrders.Contains(order))
             {
                 ActiveOrders.Remove(order);
-                Console.WriteLine($"Waiter {Name} has served the order successfully.");
+                return $"Waiter {Name} has served the order successfully.";
             }
             else
             {
-                Console.WriteLine($"The order is not found in {Name}'s active orders.");
+                return $"The order is not found in {Name}'s active orders.";
             }
         }
 
-        public void PrintActiveOrders()
+        public string PrintActiveOrders()
         {
             if (ActiveOrders.Count == 0)
             {
-                Console.WriteLine($"Waiter {Name} currently has no active orders.");
+                return $"Waiter {Name} currently has no active orders.";
             }
-            else
+
+            var builder = new StringBuilder($"Waiter {Name}'s active orders:\n");
+            for (int i = 0; i < ActiveOrders.Count; i++)
             {
-                Console.WriteLine($"Waiter {Name}'s active orders:");
-                for (int i = 0; i < ActiveOrders.Count; i++)
-                {
-                    Console.WriteLine($"{i + 1}. Order with {ActiveOrders[i].Items.Count} items.");
-                }
+                builder.AppendLine($"{i + 1}. Order with {ActiveOrders[i].Items.Count} items.");
             }
+            return builder.ToString();
         }
+
         public List<Order> GetActiveOrders()
         {
             return new List<Order>(ActiveOrders);
         }
     }
 }
+
