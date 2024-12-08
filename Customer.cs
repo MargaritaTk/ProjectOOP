@@ -12,6 +12,8 @@ namespace Project
         public List<Order> Orders { get; } = new List<Order>();
         public override string RoleDescription { get; set; }
 
+        public event Action<string>? OrderCreated;
+
         public Customer(string name) : base(name)
         {
             RoleDescription = "Our Customer.";
