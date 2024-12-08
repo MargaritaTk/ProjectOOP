@@ -31,6 +31,8 @@ namespace Project
                 throw new InvalidOperationException("Order can't be empty.");
             }
             Orders.Add(order);
+            Console.WriteLine();
+            OrderCreated?.Invoke($"Order created for customer {Name}.");
         }
     }
 }
