@@ -11,7 +11,8 @@ class Program
     static void MainMenu()
     {
         var menu = new Menu();
-        menu.MenuUpdates += message => Console.WriteLine($"[Menu Update]: {message}"); // Підписка на подію
+        menu.MenuUpdates += message => Console.WriteLine($"[Menu Update]: {message}"); 
+
 
         List<Person> people = new List<Person>
         {
@@ -28,6 +29,14 @@ class Program
         foreach (var person in people)
         {
             Console.WriteLine($"{person.Name}: {person.RoleDescription}");
+        }
+
+        foreach (var person in people)
+        {
+            if (person is Customer customer)
+            {
+                customer.OrderCreated += message => Console.WriteLine(message);
+            }
         }
 
         while (true)
